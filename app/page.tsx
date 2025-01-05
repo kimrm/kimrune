@@ -1,101 +1,143 @@
+import Link from "next/link";
+import Card from "./components/Card";
+import Hero from "./components/Hero";
+import StackIcons from "./components/stackIcons/StackIcons";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="bg-[#0C1423]">
+      <Hero />
+      <section id="tech-stack" className="py-16 px-8 overflow-hidden">
+        <StackIcons />
+      </section>
+      <section
+        id="projects"
+        className="py-32 px-8 flex flex-col  space-y-40 max-w-7xl mx-auto bg-about "
+      >
+        <div>
+          <h1 className="text-4xl font-bold mb-4">At Your Service</h1>
+          <div className="flex justify-left space-x-24">
+            <div>
+              <p className="max-w-prose">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                Incidunt perferendis labore amet eaque ullam explicabo quas
+                reprehenderit sunt magni dolorem, aut voluptatibus vero natus
+                quisquam iusto officiis doloremque iure non.
+              </p>
+              <p className="max-w-prose mt-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
+                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
+                quos illum totam molestiae quisquam eius perspiciatis vero
+                magnam ipsum! Quibusdam?
+              </p>
+              <p className="max-w-prose mt-4 mb-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
+                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
+                quos illum totam molestiae quisquam eius perspiciatis vero
+                magnam ipsum! Quibusdam?
+              </p>
+              <Link
+                href="/about"
+                className="underline hover:text-neutral-300 hover:bg-neutral-900"
+              >
+                Les mer om meg og min bakgrunn
+              </Link>
+            </div>
+            <div className="bg-neutral-950 border-neutral-900 border rounded-md p-8 h-96 w-96 rotate-2 shadow-2xl shadow-black">
+              <div className="relative">
+                {/* <div className="absolute top-0 -left-5 w-20 h-4 bg-neutral-100 bg-opacity-70 -rotate-45 rounded-tl-lg"></div>
+                <div className="absolute top-6 -right-10 w-32 h-4 bg-neutral-100 bg-opacity-70 rotate-45 rounded-bl-lg"></div> */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+                <Image
+                  src="/profile2.jpeg"
+                  width={384}
+                  height={384}
+                  alt="Bilde av Kim Rune Møller"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        <div>
+          <h2 className="text-2xl font-bold mb-4">Utvalgte prosjekter</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Card title="Denne websiden">
+              <p className="my-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
+                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
+                quos illum totam molestiae quisquam eius perspiciatis vero
+                magnam ipsum! Quibusdam?
+              </p>
+              <Link
+                href="/about"
+                className="underline hover:text-neutral-300 hover:bg-neutral-900"
+              >
+                Les om teknologien bak denne siden
+              </Link>
+            </Card>
+            <Card title="Møterom bookingsystem">
+              <p className="my-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
+                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
+                quos illum totam molestiae quisquam eius perspiciatis vero
+                magnam ipsum! Quibusdam?
+              </p>
+              <Link
+                href="/about"
+                className="underline hover:text-neutral-300 hover:bg-neutral-900"
+              >
+                Les om teknologien bak denne siden
+              </Link>
+            </Card>
+            <Card title="Hjemmeside Kunnskaps- og Næringsparken Senja">
+              <p className="my-4">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
+                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
+                quos illum totam molestiae quisquam eius perspiciatis vero
+                magnam ipsum! Quibusdam?
+              </p>
+              <Link
+                href="/about"
+                className="underline hover:text-neutral-300 hover:bg-neutral-900"
+              >
+                Les om teknologien bak denne siden
+              </Link>
+            </Card>
+          </div>
+        </div>
+      </section>
+      <section
+        id="contact"
+        className="py-24 px-8 mt-12  max-w-7xl mx-auto bg-slate-900 rounded-sm text-center leading-relaxed"
+      >
+        <h1 className="text-4xl font-bold mb-4">Vil du samarbeide med meg?</h1>
+        <p className="max-w-prose mt-4 mx-auto">
+          Vil du samarbeide med meg? Besøk meg på LinkedIn, GitHub eller{" "}
+          <Link
+            href="/contact"
+            className="bg-yellow-50 text-neutral-900 px-1 whitespace-nowrap"
+          >
+            via kontaktskjema
+          </Link>
+          , så tar vi en prat. Les mer om meg og min bakgrunn og hvilke
+          teknologier jeg holder på meg på{" "}
+          <Link
+            href="/about"
+            className="bg-yellow-50 text-neutral-900 px-1 whitespace-nowrap"
+          >
+            om meg siden
+          </Link>
+          . Se flere prosjekter jeg har jobbet med på{" "}
+          <Link
+            href="/projects"
+            className="bg-yellow-50 text-neutral-900 px-1 whitespace-nowrap"
+          >
+            prosjekter siden
+          </Link>
+          .
+        </p>
+      </section>
+    </main>
   );
 }
