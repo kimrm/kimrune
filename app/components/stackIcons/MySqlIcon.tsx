@@ -24,7 +24,7 @@ export default function MySqlIcon({ className }: { className?: string }) {
           </g>
         </g>
       </svg>
-      MySQL
+      <span className="sr-only md:not-sr-only">MySQL</span>
     </div>
   );
 }

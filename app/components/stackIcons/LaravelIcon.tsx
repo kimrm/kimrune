@@ -19,7 +19,7 @@ export default function LaravelIcon({ className }: { className?: string }) {
           </g>
         </g>
       </svg>
-      Laravel
+      <span className="sr-only md:not-sr-only">Laravel</span>
     </div>
   );
 }

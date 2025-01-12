@@ -19,7 +19,7 @@ export default function TailwindIcon({ className }: { className?: string }) {
           </g>
         </g>
       </svg>
-      Tailwind CSS
+      <span className="sr-only md:not-sr-only">Tailwind</span>
     </div>
   );
 }

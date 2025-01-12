@@ -37,7 +37,7 @@ export default function ReactIcon({ className }: { className?: string }) {
           </g>
         </g>
       </svg>
-      React
+      <span className="sr-only md:not-sr-only">React</span>
     </div>
   );
 }

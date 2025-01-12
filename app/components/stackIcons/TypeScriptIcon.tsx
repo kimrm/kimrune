@@ -24,7 +24,7 @@ export default function TypeScriptIcon({ className }: { className?: string }) {
           </g>
         </g>
       </svg>
-      TypeScript
+      <span className="sr-only md:not-sr-only">TypeScript</span>
     </div>
   );
 }
