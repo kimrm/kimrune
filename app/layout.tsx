@@ -9,7 +9,7 @@ const afacadSans = Afacad({
 });
 
 export const metadata: Metadata = {
-  title: "kimrune.dev",
+  title: "kodesmia.com",
   description: "Webutvikler"
 };
 
