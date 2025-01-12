@@ -1,37 +1,12 @@
 import Link from "next/link";
-import Card from "./components/Card";
 import Hero from "./components/Hero";
+import Projects from "./components/projects/Projects";
 import Image from "next/image";
+import ModalContainer from "./components/modalContainer/ModalContainer";
 
-interface Project {
-  id: number;
-  slug: string;
-  title: string;
-  description: string;
-  body: string;
-  image: string;
-}
-
-interface ProjectData {
-  data: Project[];
-}
-
-async function fetchProjects() {
-  const res = await fetch("http://localhost/api/v1/projects/featured", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      authorization: `Bearer ${process.env.BACKEND_TOKEN}`
-    }
-  });
-  const data: ProjectData = await res.json();
-  return data;
-}
-
-export default async function Home() {
-  const data = await fetchProjects();
+export default function Home() {
   return (
-    <main className="bg-[#0C1423]">
+    <main className="bg-[#0C1423] relative">
       <Hero />
 
       <section
@@ -105,21 +80,7 @@ export default async function Home() {
         <div>
           <h2 className="text-2xl font-bold mb-4">Utvalgte prosjekter</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.data.map((project) => (
-              <Card
-                key={project.id}
-                title={project.title}
-                image={project.image}
-              >
-                <p className="mb-4">{project.description}</p>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="underline hover:text-neutral-300 hover:bg-neutral-900"
-                >
-                  Les om teknologien bak denne siden
-                </Link>
-              </Card>
-            ))}
+            <Projects />
           </div>
         </div>
       </section>
@@ -154,6 +115,7 @@ export default async function Home() {
           .
         </p>
       </section>
+      <ModalContainer />
     </main>
   );
 }
