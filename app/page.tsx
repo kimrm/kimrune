@@ -1,41 +1,62 @@
 import Link from "next/link";
 import Card from "./components/Card";
 import Hero from "./components/Hero";
-import StackIcons from "./components/stackIcons/StackIcons";
 import Image from "next/image";
 
-export default function Home() {
+interface Project {
+  id: number;
+  slug: string;
+  title: string;
+  description: string;
+  body: string;
+  image: string;
+}
+
+interface ProjectData {
+  data: Project[];
+}
+
+async function fetchProjects() {
+  const res = await fetch("http://localhost/api/v1/projects/featured", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${process.env.BACKEND_TOKEN}`
+    }
+  });
+  const data: ProjectData = await res.json();
+  return data;
+}
+
+export default async function Home() {
+  const data = await fetchProjects();
   return (
     <main className="bg-[#0C1423]">
       <Hero />
-      <section id="tech-stack" className="py-16 px-8 overflow-hidden">
-        <StackIcons />
-      </section>
+
       <section
         id="projects"
         className="py-32 px-8 flex flex-col  space-y-40 max-w-7xl mx-auto bg-about "
       >
         <div>
           <h1 className="text-4xl font-bold mb-4">At Your Service</h1>
-          <div className="flex justify-left space-x-24">
-            <div>
+          <div className="flex justify-left">
+            <div className="w-1/2">
               <p className="max-w-prose">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Incidunt perferendis labore amet eaque ullam explicabo quas
-                reprehenderit sunt magni dolorem, aut voluptatibus vero natus
-                quisquam iusto officiis doloremque iure non.
+                Jeg er en full-stack utvikler og IT-konsulent som lager
+                nettsider og spesialsydde applikasjoner, eller hjelper deg med
+                IT-relaterte utfordringer.
               </p>
               <p className="max-w-prose mt-4">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
-                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
-                quos illum totam molestiae quisquam eius perspiciatis vero
-                magnam ipsum! Quibusdam?
+                Med over 20 års erfaring innen IT-bransjen, har jeg jobbet med
+                alt fra enkle nettsider til store komplekse applikasjoner. Jeg
+                har erfaring med en rekke teknologier, og holder meg oppdatert
+                på det siste innen utvikling og design.
               </p>
               <p className="max-w-prose mt-4 mb-4">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
-                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
-                quos illum totam molestiae quisquam eius perspiciatis vero
-                magnam ipsum! Quibusdam?
+                Jeg har jobbet med alt fra små enkeltmannsforetak til store
+                internasjonale selskaper, og har erfaring med alt fra
+                prosjektledelse og rådgivning til utvikling og design.
               </p>
               <Link
                 href="/about"
@@ -44,17 +65,39 @@ export default function Home() {
                 Les mer om meg og min bakgrunn
               </Link>
             </div>
-            <div className="bg-neutral-950 border-neutral-900 border rounded-md p-8 h-96 w-96 rotate-2 shadow-2xl shadow-black">
-              <div className="relative">
-                {/* <div className="absolute top-0 -left-5 w-20 h-4 bg-neutral-100 bg-opacity-70 -rotate-45 rounded-tl-lg"></div>
-                <div className="absolute top-6 -right-10 w-32 h-4 bg-neutral-100 bg-opacity-70 rotate-45 rounded-bl-lg"></div> */}
-
-                <Image
-                  src="/profile2.jpeg"
-                  width={384}
-                  height={384}
-                  alt="Bilde av Kim Rune Møller"
-                />
+            <div className="w-1/2 h-96 relative">
+              <div className="bg-[#0b121f] absolute border-neutral-800 top-0 z-20 left-0 border rounded-md p-8 h-96 w-96 rotate-2 shadow-2xl shadow-black">
+                <div className="relative">
+                  <Image
+                    src="/profile2.jpeg"
+                    width={384}
+                    height={384}
+                    alt="Bilde av Kim Rune Møller"
+                    className="-rotate-1"
+                  />
+                </div>
+              </div>
+              <div className="bg-[#080c15] absolute top-0 left-20 z-10 border-neutral-800 border rounded-md p-8 h-96 w-96 -rotate-2 shadow-2xl shadow-black">
+                <div className="relative">
+                  <Image
+                    src="/profile2.jpeg"
+                    width={384}
+                    height={384}
+                    alt="Bilde av Kim Rune Møller"
+                    className="-rotate-1"
+                  />
+                </div>
+              </div>
+              <div className="bg-[#05070c] absolute top-0 left-40 z-0 border-neutral-800 border rounded-md p-8 h-96 w-96 rotate-6 shadow-2xl shadow-black">
+                <div className="relative">
+                  <Image
+                    src="/profile2.jpeg"
+                    width={384}
+                    height={384}
+                    alt="Bilde av Kim Rune Møller"
+                    className="-rotate-1"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -62,48 +105,21 @@ export default function Home() {
         <div>
           <h2 className="text-2xl font-bold mb-4">Utvalgte prosjekter</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card title="Denne websiden">
-              <p className="my-4">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
-                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
-                quos illum totam molestiae quisquam eius perspiciatis vero
-                magnam ipsum! Quibusdam?
-              </p>
-              <Link
-                href="/about"
-                className="underline hover:text-neutral-300 hover:bg-neutral-900"
+            {data.data.map((project) => (
+              <Card
+                key={project.id}
+                title={project.title}
+                image={project.image}
               >
-                Les om teknologien bak denne siden
-              </Link>
-            </Card>
-            <Card title="Møterom bookingsystem">
-              <p className="my-4">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
-                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
-                quos illum totam molestiae quisquam eius perspiciatis vero
-                magnam ipsum! Quibusdam?
-              </p>
-              <Link
-                href="/about"
-                className="underline hover:text-neutral-300 hover:bg-neutral-900"
-              >
-                Les om teknologien bak denne siden
-              </Link>
-            </Card>
-            <Card title="Hjemmeside Kunnskaps- og Næringsparken Senja">
-              <p className="my-4">
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex
-                dolores unde, beatae dolore ratione sed deleniti eum, omnis iste
-                quos illum totam molestiae quisquam eius perspiciatis vero
-                magnam ipsum! Quibusdam?
-              </p>
-              <Link
-                href="/about"
-                className="underline hover:text-neutral-300 hover:bg-neutral-900"
-              >
-                Les om teknologien bak denne siden
-              </Link>
-            </Card>
+                <p className="mb-4">{project.description}</p>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="underline hover:text-neutral-300 hover:bg-neutral-900"
+                >
+                  Les om teknologien bak denne siden
+                </Link>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
