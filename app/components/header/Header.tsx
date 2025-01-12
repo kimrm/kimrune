@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export default function Header() {
   const pathname = usePathname();
-
+  console.log(pathname);
   useEffect(() => {
     const header = document.querySelector("header");
     const handleScroll = () => {
@@ -34,14 +34,14 @@ export default function Header() {
                 pathname === "/" ? "bg-neutral-900" : "hover:bg-neutral-900"
               } p-2 rounded-md`}
             >
-              Hjem
+              kodesmia.com
             </Link>
           </li>
           <li>
             <Link
               href="/projects"
               className={`${
-                pathname === "/projects"
+                pathname === "/projects" || pathname.includes("/projects/")
                   ? "bg-neutral-900"
                   : "hover:bg-neutral-900"
               } p-2 rounded-md`}
