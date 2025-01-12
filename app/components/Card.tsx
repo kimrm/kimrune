@@ -4,10 +4,11 @@ import Image from "next/image";
 
 interface Props {
   title: string;
+  image: string;
   children: React.ReactNode;
 }
 
-export default function Card({ title, children }: Props) {
+export default function Card({ title, image, children }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -17,13 +18,14 @@ export default function Card({ title, children }: Props) {
       className="bg-neutral-300 text-black border-neutral-900 border rounded-md p-8"
     >
       <Image
-        src="/knpsenja.png"
+        src={`/${image}`}
         width={400}
         height={200}
         alt="knpsenja.no"
-        className="mb-4"
+        className="mb-4 w-full h-52 object-cover"
+        loading="lazy"
       />
-      <h3 className="text-xl font-bold mb-4">{title}</h3>
+      <h3 className="text-xl font-bold mb-1">{title}</h3>
       {children}
     </motion.div>
   );
