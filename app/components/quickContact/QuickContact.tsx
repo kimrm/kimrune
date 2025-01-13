@@ -15,7 +15,11 @@ export default function QuickContact() {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageIndex, setMessageIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
+  const [userQuestion, setUserQuestion] = useState("");
   const openModal = useContactModalStore((state) => state.openModal);
+  const setUserQuestionInStore = useContactModalStore(
+    (state) => state.setUserQuestion
+  );
 
   useEffect(() => {
     const message = messages[messageIndex];
@@ -38,6 +42,11 @@ export default function QuickContact() {
     }
   }, [charIndex, messageIndex]);
 
+  const handleOpenModal = () => {
+    setUserQuestionInStore(userQuestion); // Lagre brukerens spørsmål i Zustand-store
+    openModal(); // Åpne modalen
+  };
+
   return (
     <>
       <motion.input
@@ -47,9 +56,11 @@ export default function QuickContact() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
+        value={userQuestion}
+        onChange={(e) => setUserQuestion(e.target.value)}
       />
       <button
-        onClick={openModal}
+        onClick={handleOpenModal}
         className="bg-black px-4 py-2 rounded-3xl hover:bg-gray-800 transition-colors duration-500"
       >
         Kontakt meg
