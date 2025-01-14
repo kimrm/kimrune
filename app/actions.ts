@@ -1,5 +1,19 @@
 "use server";
 
+export async function fetchAvailableDates() {
+  const res = await fetch("http://localhost/api/v1/calendar/available-events", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${process.env.BACKEND_TOKEN}`
+    }
+  });
+
+  const data = await res.json();
+
+  return data;
+}
+
 export async function sendContactRequest(
   prevState: {
     success: boolean;
@@ -48,8 +62,29 @@ export async function prompt(userQuestion: string) {
   const messages = [
     {
       role: "system",
-      content:
-        "Du jobber i salgsmottaket og skal hjelpe kunden med å finne ut hva de ønsker hjelp til. Spør kunden om hva de ønsker hjelp til, og list gjerne opp punkter som kan være viktig å få svar på for å kunne gi en løsning."
+      content: `
+      Tjenester jeg tilbyr:
+      - Webutvikling med React og Laravel.
+      - Webdesign.
+      - IT-støtte.
+      - Hjelp med konfigurasjon av maskinvare og software.
+      - Webtjenester.
+      - Hjelp med SEO.
+      - IT-konsulenttjenester og rådgivning.
+      - Integrering av systemer.
+      - Integrering AI-tjenester.
+      - Wifi og nettverk.
+      - Hjelp med å finne riktig programvare.
+      - Hjelp med å finne riktig maskinvare.
+      - Hjelp med å finne riktig tjeneste.
+      - Microsoft 365 og Google Workspace.
+        Du jobber i salgsmottaket og skal hjelpe meg med å finne ut hva kunden ønsker. 
+        Spør kunden om hva de ønsker hjelp til, og list gjerne opp punkter som kan være viktig å få svar på for å kunne gi en løsning.
+        Du selger bare programmeringstjenester, Support og hjelp med konfigurasjon av maskinvare som for eksempel printere og PC-er. 
+        Du selger ikke utstyr eller maskinvare.        
+        Du kan ikke svare på andre spørsmål enn de som omhandler dine tjenester.
+        Si fra til kunden på en høflig måte at du ikke kan hjelpe når spørsmålet ikke gjelder nevnte tjenester.
+        `
     },
     {
       role: "user",
