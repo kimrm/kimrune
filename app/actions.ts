@@ -112,3 +112,32 @@ export async function prompt(userQuestion: string) {
     console.log("error ", error);
   }
 }
+
+export async function postLead(
+  prevState: {
+    success: boolean;
+    message: string;
+    errors?: Record<string, string[]>;
+  },
+  formData: FormData
+) {
+  const res = await fetch("http://localhost/api/v1/leads", {
+    method: "POST",
+    body: formData,
+    headers: {
+      Accept: "application/json",
+      authorization: `Bearer ${process.env.BACKEND_TOKEN}`
+    }
+  });
+  if (!res.ok) {
+    return {
+      success: false,
+      message: `Noe gikk galt. Prøv igjen senere. (${res.status})`
+    };
+  }
+
+  return {
+    success: true,
+    message: ""
+  };
+}
