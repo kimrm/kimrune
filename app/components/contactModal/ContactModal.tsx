@@ -1,6 +1,6 @@
-import { FormEvent, useEffect, useState, useRef } from "react";
+import { FormEvent, useEffect, useState, useRef, useActionState } from "react";
 import useContactModalStore from "@/app/store/useContactModalStore";
-import { fetchAvailableDates } from "@/app/actions";
+import { fetchAvailableDates, postLead } from "@/app/actions";
 
 interface ModalProps {
   userQuestion: string;
@@ -20,6 +20,7 @@ export default function ContactModal({ onClose }: ModalProps) {
   const [nextStep, setNextStep] = useState(false);
   const [chatResponse, setChatResponse] = useState("");
   const userQuestion = useContactModalStore((state) => state.userQuestion);
+  const [userMessage, setUserMessage] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -109,12 +110,17 @@ export default function ContactModal({ onClose }: ModalProps) {
 
         {nextStep ? (
           <FinalForm
+            userMessage={userMessage}
+            userQuestion={userQuestion}
+            chatResponse={chatResponse}
             onClose={onClose}
             setNextStep={setNextStep}
             handleSubmit={handleSubmit}
           />
         ) : (
           <MoreInfoForm
+            setUserMessage={setUserMessage}
+            userQuestion={userQuestion}
             chatResponse={chatResponse}
             onClose={onClose}
             setNextStep={setNextStep}
@@ -126,14 +132,29 @@ export default function ContactModal({ onClose }: ModalProps) {
 }
 
 interface FinalFormProps {
+  userMessage: string;
+  userQuestion: string;
+  chatResponse: string;
   onClose: () => void;
   setNextStep: (value: boolean) => void;
   handleSubmit: (e: FormEvent) => void;
 }
 
-function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
+function FinalForm({
+  userMessage,
+  userQuestion,
+  chatResponse,
+  onClose,
+  setNextStep,
+  handleSubmit
+}: FinalFormProps) {
   const [phone, setPhone] = useState("");
   const [availableDates, setAvailableDates] = useState<AvailableEvent[]>([]);
+  const [appointment, setAppointment] = useState("");
+  const [state, formAction, pending] = useActionState(postLead, {
+    success: false,
+    message: ""
+  });
 
   useEffect(() => {
     fetchAvailableDates().then((data) => {
@@ -142,17 +163,28 @@ function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
   }, [phone]);
   return (
     <div>
+      {state.success && (
+        <div>
+          <p className="text-green-900">
+            Takk for din henvendelse. Vi kontakter deg snart.
+          </p>
+        </div>
+      )}
       <h2 className="text-lg mt-2">
         Fyll ut navn og e-post, eller telefonnummer hvis du ønsker et
         telefonmøte.
       </h2>
-      <form onSubmit={handleSubmit}>
+      <form action={formAction}>
+        <input type="hidden" name="message" value={userMessage} />
+        <input type="hidden" name="subject" value={userQuestion} />
+        <input type="hidden" name="questions" value={chatResponse} />
         <label htmlFor="name" className="block mt-4">
           Navn
         </label>
         <input
           type="text"
           id="name"
+          name="name"
           className="w-full bg-gray-100 rounded p-2 mb-2"
         />
         <label htmlFor="email" className="block">
@@ -161,6 +193,7 @@ function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
         <input
           type="email"
           id="email"
+          name="email"
           className="w-full bg-gray-100 rounded p-2 mb-2"
         />
         <label htmlFor="phone" className="block">
@@ -169,6 +202,7 @@ function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
         <input
           type="tel"
           id="phone"
+          name="phone"
           className="w-full bg-gray-100 rounded p-2 mb-2"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -186,7 +220,9 @@ function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
                   <input
                     type="radio"
                     id={date.id}
-                    name="date"
+                    name="appointment"
+                    value={date.id}
+                    onChange={(e) => setAppointment(e.target.value)}
                     className="mr-1"
                   />
                   {date.date} kl. {date.startHour}
@@ -208,6 +244,7 @@ function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
             onClick={() => {
               setNextStep(true);
             }}
+            disabled={pending}
             className="bg-black text-white rounded-3xl p-2 w-full hover:bg-neutral-800"
           >
             Send forespørsel
@@ -222,12 +259,16 @@ function FinalForm({ onClose, setNextStep, handleSubmit }: FinalFormProps) {
 }
 
 interface MoreInfoFormProps {
+  setUserMessage: (value: string) => void;
+  userQuestion: string;
   chatResponse: string;
   onClose: () => void;
   setNextStep: (value: boolean) => void;
 }
 
 function MoreInfoForm({
+  setUserMessage,
+  userQuestion,
   chatResponse,
   onClose,
   setNextStep
@@ -242,6 +283,7 @@ function MoreInfoForm({
         <textarea
           id="message"
           className="w-full bg-gray-100 mt-2 rounded-xl p-2 h-52"
+          onChange={(e) => setUserMessage(e.target.value)}
         ></textarea>
       </label>
       <div className="flex items-center space-x-4">
