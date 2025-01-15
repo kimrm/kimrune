@@ -11,11 +11,13 @@ export default function Hero() {
         </div>
         <div className="text-center z-10">
           <h1 className="text-6xl font-extrabold">
-            Webutvikling og<br></br>IT-konsulenttjenester
+            Webutvikling og<br></br>IT-konsulenttjenester fra{" "}
+            <span className="bg-neutral-900">kodello</span>
           </h1>
-          <p className="my-4">
-            Jeg lager nettsider og spesialsydde applikasjoner, eller hjelper deg
-            med IT-relaterte utfordringer.
+          <p className="my-4 max-w-prose mx-auto">
+            Kodello er en lokal og serviceinnstilt leverandør av webutvikling og
+            IT-konsulenttjenester. Vi hjelper deg med å skape en profesjonell og
+            brukervennlig nettside, nettbutikk eller webapplikasjon.
           </p>
           <div className="mt-12 flex space-x-4 justify-center">
             <QuickContact />
