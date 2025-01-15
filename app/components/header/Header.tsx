@@ -32,9 +32,9 @@ export default function Header() {
               href="/"
               className={`${
                 pathname === "/" ? "bg-neutral-900" : "hover:bg-neutral-900"
-              } p-2 rounded-md`}
+              } p-2 rounded-md uppercase text-sm tracking-widest`}
             >
-              kodesmia.com
+              +kodello
             </Link>
           </li>
           <li>
