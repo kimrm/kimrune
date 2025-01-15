@@ -43,8 +43,8 @@ export default function QuickContact() {
   }, [charIndex, messageIndex]);
 
   const handleOpenModal = () => {
-    setUserQuestionInStore(userQuestion); // Lagre brukerens spørsmål i Zustand-store
-    openModal(); // Åpne modalen
+    setUserQuestionInStore(userQuestion);
+    openModal();
   };
 
   return (
@@ -63,7 +63,7 @@ export default function QuickContact() {
         onClick={handleOpenModal}
         className="bg-black px-4 py-2 rounded-3xl hover:bg-gray-800 transition-colors duration-500"
       >
-        Kontakt meg
+        Få hjelp
       </button>
     </>
   );
