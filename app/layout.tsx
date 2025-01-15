@@ -9,7 +9,7 @@ const afacadSans = Afacad({
 });
 
 export const metadata: Metadata = {
-  title: "kodesmia.com",
+  title: "kodello",
   description: "Webutvikler"
 };
 
@@ -24,7 +24,7 @@ export default function RootLayout({
         <Header />
         {children}
         <footer className="pt-24 pb-8 px-8 text-center bg-[#0C1423]">
-          <p>&copy; {new Date().getFullYear()} kimrune.dev</p>
+          <p>&copy; {new Date().getFullYear()} kodello - K-R Møller</p>
         </footer>
       </body>
     </html>
