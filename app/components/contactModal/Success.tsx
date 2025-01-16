@@ -10,7 +10,6 @@ interface SuccessProps {
 }
 
 export default function Success({ onClose, formResponse }: SuccessProps) {
-  console.log(formResponse);
   return (
     <div>
       <h1 className="text-2xl mt-2">Din henvendelse er mottatt! 🥳</h1>

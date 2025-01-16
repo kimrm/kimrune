@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export default function Header() {
   const pathname = usePathname();
-  console.log(pathname);
   useEffect(() => {
     const header = document.querySelector("header");
     const handleScroll = () => {
