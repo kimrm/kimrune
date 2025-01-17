@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "../components/Card";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Project {
   id: number;
@@ -39,14 +40,25 @@ export default async function ProjectsPage() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 bg-about">
           {data.data.map((project) => (
-            <Card key={project.id} title={project.title} image={project.image}>
-              <p className="mb-4">{project.description}</p>
-              <Link
-                href={`/projects/${project.slug}`}
-                className="underline hover:text-neutral-300 hover:bg-neutral-900"
-              >
-                Les om teknologien bak denne siden
-              </Link>
+            <Card key={project.id}>
+              <div className="flex flex-col h-full">
+                <Image
+                  src={`/${project.image}`}
+                  width={400}
+                  height={200}
+                  alt="knpsenja.no"
+                  className="mb-4 w-full h-52 object-cover"
+                  loading="lazy"
+                />
+                <h3 className="text-xl font-bold mb-1">{project.title}</h3>
+                <p className="mb-4">{project.description}</p>
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="underline hover:text-neutral-300 hover:bg-neutral-900 mt-auto"
+                >
+                  Les om teknologien bak denne siden
+                </Link>
+              </div>
             </Card>
           ))}
         </div>
