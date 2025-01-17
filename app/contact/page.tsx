@@ -3,6 +3,8 @@
 import { useActionState, useEffect, useState } from "react";
 import { sendContactRequest } from "@/app/actions";
 import { motion } from "motion/react";
+import useContactModalStore from "@/app/store/useContactModalStore";
+import PrimaryButton from "../components/UI/PrimaryButton";
 
 const initialState = {
   success: false,
@@ -18,14 +20,17 @@ const initialFormState = {
 };
 
 export default function Page() {
+  const openModal = useContactModalStore((state) => state.openModal);
   return (
     <main className="bg-[#0C1423]">
       <section className="py-24 px-8 max-w-7xl mx-auto">
         <h2 className="text-4xl font-bold text-white">Kontakt meg</h2>
-        <p className="text-white my-4">
-          Har du en idé til et prosjekt, eller trenger du hjelp med noe? Ta
-          gjerne kontakt med meg.
+        <p className="text-white my-4 max-w-prose">
+          Jeg sitter ofte i kundemøter eller jobber med kode, så det kan være
+          vanskelig å nå meg på telefon. Send meg en melding her, så svarer jeg
+          så fort jeg kan.
         </p>
+        <button onClick={openModal}>Eller prøv min AI</button>
         <Form />
       </section>
     </main>
@@ -153,13 +158,9 @@ function Form() {
         ))}
       {!submitEnabled() && <p>Fyll inn navn, epost og melding for å sende.</p>}
       <div className="mt-4">
-        <button
-          type="submit"
-          disabled={!submitEnabled() || pending}
-          className="bg-blue-500 disabled:bg-neutral-400 disabled:hover:bg-neutral-400 text-white px-4 font-bold py-2 rounded-xl hover:bg-blue-600 transition-colors duration-500"
-        >
+        <PrimaryButton type="submit" disabled={!submitEnabled() || pending}>
           Send melding
-        </button>
+        </PrimaryButton>
       </div>
     </form>
   );
