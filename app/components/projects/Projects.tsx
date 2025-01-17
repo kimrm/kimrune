@@ -1,5 +1,6 @@
 import Card from "../Card";
 import Link from "next/link";
+import Image from "next/image";
 
 interface Project {
   id: number;
@@ -31,14 +32,25 @@ export default async function Projects() {
   return (
     <>
       {data.data.map((project) => (
-        <Card key={project.id} title={project.title} image={project.image}>
-          <p className="mb-4">{project.description}</p>
-          <Link
-            href={`/projects/${project.slug}`}
-            className="underline hover:text-neutral-300 hover:bg-neutral-900"
-          >
-            Les om teknologien bak denne siden
-          </Link>
+        <Card key={project.id}>
+          <div className="flex flex-col h-full">
+            <Image
+              src={`/${project.image}`}
+              width={400}
+              height={200}
+              alt="knpsenja.no"
+              className="mb-4 w-full h-52 object-cover"
+              loading="lazy"
+            />
+            <h3 className="text-xl font-bold mb-1">{project.title}</h3>
+            <p className="mb-4">{project.description}</p>
+            <Link
+              href={`/projects/${project.slug}`}
+              className="underline hover:text-neutral-300 hover:bg-neutral-900 mt-auto"
+            >
+              Les om teknologien bak denne siden
+            </Link>
+          </div>
         </Card>
       ))}
     </>
