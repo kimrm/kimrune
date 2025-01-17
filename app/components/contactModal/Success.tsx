@@ -1,4 +1,5 @@
 import React from "react";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface SuccessProps {
   onClose: () => void;
@@ -28,12 +29,7 @@ export default function Success({ onClose, formResponse }: SuccessProps) {
       </p>
       <p className="text-lg mt-3">Takk!</p>
       <p className="mt-2">❤️ Kodello og Kim Møller</p>
-      <button
-        onClick={onClose}
-        className="bg-black text-white rounded-3xl p-2 mt-4 hover:bg-neutral-800"
-      >
-        Lukk modal
-      </button>
+      <PrimaryButton onClick={onClose}>Lukk modal</PrimaryButton>
     </div>
   );
 }

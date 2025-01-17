@@ -1,6 +1,7 @@
 import { FormEvent, useEffect, useState, useActionState } from "react";
 import { postLead, fetchAvailableDates } from "@/app/actions";
 import { AvailableEvent } from "@/app/types";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface FinalFormProps {
   userMessage: string;
@@ -41,7 +42,7 @@ export default function FinalForm({
   useEffect(() => {
     if (state.success) {
       setFormResponse(state.response);
-      setFormProgress(2);
+      setFormProgress(3);
     }
   }, [state.success, state.response, setFormProgress, setFormResponse]);
 
@@ -123,13 +124,9 @@ export default function FinalForm({
         )}
 
         <div className="flex items-center space-x-4 mt-4">
-          <button
-            type="submit"
-            disabled={pending}
-            className="bg-black text-white rounded-3xl p-2 w-full hover:bg-neutral-800"
-          >
+          <PrimaryButton type="submit" disabled={pending}>
             Send forespørsel
-          </button>
+          </PrimaryButton>
           <button onClick={onClose} className="text-black underline">
             Lukk
           </button>

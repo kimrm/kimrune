@@ -1,3 +1,5 @@
+import PrimaryButton from "../UI/PrimaryButton";
+
 interface MoreInfoFormProps {
   setUserMessage: (value: string) => void;
   chatResponse: string;
@@ -25,14 +27,13 @@ export default function MoreInfoForm({
         ></textarea>
       </label>
       <div className="flex items-center space-x-4">
-        <button
+        <PrimaryButton
           onClick={() => {
-            setFormProgress(1);
+            setFormProgress(2);
           }}
-          className="bg-black text-white rounded-3xl p-2 w-full hover:bg-neutral-800"
         >
           Videre
-        </button>
+        </PrimaryButton>
         <button onClick={onClose} className="text-black underline">
           Lukk
         </button>
