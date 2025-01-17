@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import useContactModalStore from "@/app/store/useContactModalStore";
+import PrimaryButton from "../UI/PrimaryButton";
 
 const messages = [
   "Jeg trenger ny hjemmeside...",
@@ -52,19 +53,14 @@ export default function QuickContact() {
       <motion.input
         type="text"
         placeholder={currentMessage}
-        className="bg-white px-4 py-2 rounded-3xl w-1/2 text-black"
+        className="bg-white px-4 py-2 rounded-3xl w-1/2 text-black border-2 focus:border-purple-500 focus:outline-none transition-colors duration-500"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
         value={userQuestion}
         onChange={(e) => setUserQuestion(e.target.value)}
       />
-      <button
-        onClick={handleOpenModal}
-        className="bg-black px-4 py-2 rounded-3xl hover:bg-gray-800 transition-colors duration-500"
-      >
-        Få hjelp
-      </button>
+      <PrimaryButton onClick={handleOpenModal}>Få hjelp</PrimaryButton>
     </>
   );
 }
