@@ -3,21 +3,70 @@ import useContactModalStore from "@/app/store/useContactModalStore";
 import FinalForm from "./FinalForm";
 import MoreInfoForm from "./MoreInfoForm";
 import Success from "./Success";
+import PrimaryButton from "../UI/PrimaryButton";
 
 interface ModalProps {
   userQuestion: string;
   onClose: () => void;
 }
 
+interface MissingQuestionFormProps {
+  setFormProgress: (value: number) => void;
+  onClose: () => void;
+}
+
+function MissingQuestionForm({
+  setFormProgress,
+  onClose
+}: MissingQuestionFormProps) {
+  const setUserQuestion = useContactModalStore(
+    (state) => state.setUserQuestion
+  );
+  const [subject, setSubject] = useState("");
+
+  const handleSubmit = () => {
+    setUserQuestion(subject);
+    setFormProgress(1);
+  };
+  return (
+    <div>
+      <h2 className="text-xl">Hva gjelder din henvendelse?</h2>
+      <p className="text-sm">
+        Vi trenger litt mer informasjon for å kunne hjelpe deg.
+      </p>
+      <label htmlFor="subject" className="block mt-4">
+        Emne
+      </label>
+      <input
+        type="text"
+        id="subject"
+        name="subject"
+        placeholder="Eks. Jeg trenger ny hjemmeside.."
+        value={subject}
+        onChange={(e) => setSubject(e.target.value)}
+        className="w-full bg-gray-100 rounded p-2 mb-2"
+      />
+      <div className="flex items-center space-x-4 mt-4">
+        <PrimaryButton disabled={!subject} onClick={handleSubmit}>
+          Videre
+        </PrimaryButton>
+        <button onClick={onClose} className="text-black underline">
+          Lukk
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function ContactModal({ onClose }: ModalProps) {
   const [expanded, setExpanded] = useState(false);
-  const [formProgress, setFormProgress] = useState(0);
   const [formResponse, setFormResponse] = useState({
     data: { appointment: "" }
   });
   const [chatResponse, setChatResponse] = useState("");
   const userQuestion = useContactModalStore((state) => state.userQuestion);
   const [userMessage, setUserMessage] = useState("");
+  const [formProgress, setFormProgress] = useState(userQuestion ? 1 : 0);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -86,6 +135,7 @@ export default function ContactModal({ onClose }: ModalProps) {
   };
 
   const fetchInProgress = useRef(false);
+
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50">
       <div
@@ -105,6 +155,12 @@ export default function ContactModal({ onClose }: ModalProps) {
           </button>
         </div>
         {formProgress === 0 && (
+          <MissingQuestionForm
+            setFormProgress={setFormProgress}
+            onClose={onClose}
+          />
+        )}
+        {formProgress === 1 && (
           <MoreInfoForm
             setUserMessage={setUserMessage}
             chatResponse={chatResponse}
@@ -112,7 +168,7 @@ export default function ContactModal({ onClose }: ModalProps) {
             setFormProgress={setFormProgress}
           />
         )}
-        {formProgress === 1 && (
+        {formProgress === 2 && (
           <FinalForm
             userMessage={userMessage}
             userQuestion={userQuestion}
@@ -123,7 +179,7 @@ export default function ContactModal({ onClose }: ModalProps) {
             setFormResponse={setFormResponse}
           />
         )}
-        {formProgress === 2 && (
+        {formProgress === 3 && (
           <Success onClose={onClose} formResponse={formResponse} />
         )}
       </div>
