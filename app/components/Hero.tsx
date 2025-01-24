@@ -12,8 +12,8 @@ export default function Hero() {
           <div className="bg-static w-full h-full absolute z-0"></div>
         </div>
         <div className="text-center z-10 px-4">
-          <h1 className="text-4xl md:text-6xl font-extrabold">
-            Webutvikling og<br></br>IT-konsulent fra{" "}
+          <h1 className="text-4xl md:text-6xl font-extrabold max-w-3xl mx-auto">
+            Hos{" "}
             <motion.span
               initial={{ rotate: 2, x: 2, opacity: 0 }}
               animate={{ rotate: -2, x: -2, opacity: 1 }}
@@ -23,14 +23,15 @@ export default function Hero() {
                 bounce: 0.25,
                 delay: 0.5
               }}
-              className=" logo text-purple-500 -rotate-2 inline-block underline underline-offset-4"
+              className=" logo text-transparent bg-clip-text -rotate-2 inline-block underline underline-offset-4 bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400"
             >
               Kodello
-            </motion.span>
+            </motion.span>{" "}
+            skaper vi smarte løsninger for nettbutikker.
           </h1>
-          <p className="my-5 max-w-prose mx-auto text-lg">
-            Kodello er en lokal og serviceinnstilt leverandør av webutvikling og
-            IT-konsulenttjenester.
+          <p className="my-5 max-w-md mx-auto text-lg">
+            Skreddersydde dashboards og smarte løsninger for en mer effektiv
+            online tilstedeværelse.
           </p>
           <div className="mt-12 flex space-x-4 justify-center">
             <QuickContact />
