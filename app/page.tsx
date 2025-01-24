@@ -20,7 +20,7 @@ export default function Home() {
       >
         <h1 className="text-4xl font-bold mb-4">Vil du samarbeide med meg?</h1>
         <p className="max-w-prose mt-4 mx-auto text-lg">
-          Vil du samarbeide med meg? Besøk meg på LinkedIn, GitHub eller{" "}
+          Besøk meg på LinkedIn, GitHub eller{" "}
           <Link href="/contact">via kontaktskjema</Link>, så tar vi en prat. Les
           mer om meg og min bakgrunn og hvilke teknologier jeg holder på meg på{" "}
           <Link href="/about">om meg siden</Link>. Se flere prosjekter jeg har
