@@ -9,6 +9,7 @@ interface Project {
   description: string;
   body: string;
   image: string;
+  images: { url: string }[];
 }
 
 interface ProjectData {
@@ -16,7 +17,7 @@ interface ProjectData {
 }
 
 async function fetchProjects() {
-  const res = await fetch("http://localhost/api/v1/projects/featured", {
+  const res = await fetch("http://localhost/api/v1/projects", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -24,24 +25,28 @@ async function fetchProjects() {
     }
   });
   const data: ProjectData = await res.json();
+
   return data;
 }
 
 export default async function Projects() {
   const data = await fetchProjects();
+  console.log(data);
   return (
     <>
       {data.data.map((project) => (
         <Card key={project.id}>
           <div className="flex flex-col h-full">
-            <Image
-              src={`/${project.image}`}
-              width={400}
-              height={200}
-              alt="knpsenja.no"
-              className="mb-4 w-full h-52 object-cover"
-              loading="lazy"
-            />
+            {project.images.length > 0 && (
+              <Image
+                src={`${project.images[0].url}`}
+                width={400}
+                height={200}
+                alt="knpsenja.no"
+                className="mb-4 w-full h-52 object-cover"
+                loading="lazy"
+              />
+            )}
             <h3 className="text-xl font-bold mb-1">{project.title}</h3>
             <p className="mb-4">{project.description}</p>
             <Link
