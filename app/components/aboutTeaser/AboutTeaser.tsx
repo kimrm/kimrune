@@ -11,7 +11,7 @@ export default function AboutTeaser() {
       <div className="flex flex-col justify-center items-end lg:items-center">
         <div>
           <h1 className="text-4xl font-bold mb-4">
-            <span className="logo">Kodello</span> er en enmannsbedrift
+            Velkommen til <span className="logo">Kodello</span>!
           </h1>
           <div className="md:text-lg">
             <p className="max-w-prose">
