@@ -32,7 +32,7 @@ function MissingQuestionForm({
     <div>
       <h2 className="text-xl">Hva gjelder din henvendelse?</h2>
       <p className="text-sm">
-        Vi trenger litt mer informasjon for å kunne hjelpe deg.
+        Jeg trenger litt mer informasjon for å kunne hjelpe deg.
       </p>
       <label htmlFor="subject" className="block mt-4">
         Emne
