@@ -30,11 +30,12 @@ async function fetchProjects() {
 }
 
 export default async function Projects() {
-  const data = await fetchProjects();
-  console.log(data);
+  const { data } = await fetchProjects();
+
   return (
     <>
-      {data.data.map((project) => (
+      {data.length < 1 && <p>Kommer snart...</p>}
+      {data.map((project) => (
         <Card key={project.id}>
           <div className="flex flex-col h-full">
             {project.images.length > 0 && (
