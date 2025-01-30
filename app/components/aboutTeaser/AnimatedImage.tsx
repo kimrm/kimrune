@@ -5,9 +5,9 @@ import Image from "next/image";
 export default function AnimatedImage() {
   return (
     <motion.div
-      initial={{ rotate: -1080, opacity: 0 }}
+      initial={{ opacity: 0 }}
       transition={{ duration: 1, delay: 0.5, ease: "easeInOut" }}
-      whileInView={{ rotate: 0, opacity: 1 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ amount: 1, once: true }}
     >
       <Image
