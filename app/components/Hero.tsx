@@ -4,21 +4,23 @@ import StackIcons from "./stackIcons/StackIcons";
 import QuickContact from "./quickContact/QuickContact";
 import { motion } from "motion/react";
 
+const alternateTexts = [
+  "smarte løsninger for hjemmesider",
+  "smarte løsninger for bedrifter",
+  "smarte løsninger for nettbutikker"
+];
+
 export default function Hero() {
-  const [alternateText, setAlternateText] = useState("nettbutikker");
-  const alternateTexts = ["nettbutikker", "bedrifter", "hjemmesider"];
+  const [alternateText, setAlternateText] = useState(alternateTexts[0]);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      console.log("interval");
-      setAlternateText((prev) => {
-        const index = alternateTexts.indexOf(prev);
-        return alternateTexts[(index + 1) % alternateTexts.length];
-      });
+      const randomIndex = Math.floor(Math.random() * alternateTexts.length);
+      setAlternateText(alternateTexts[randomIndex]);
     }, 10000);
 
     return () => clearInterval(interval);
-  }, [alternateTexts]);
+  }, [alternateText]);
   return (
     <div className="h-screen flex flex-col max-h-[1000px] items-center justify-between">
       <div className="h-full flex items-center justify-center">
@@ -26,7 +28,7 @@ export default function Hero() {
           <div className="bg-static w-full h-full absolute z-0"></div>
         </div>
         <div className="text-center z-10 px-4">
-          <h1 className="text-4xl md:text-6xl font-extrabold max-w-3xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-extrabold max-w-4xl mx-auto">
             Hos{" "}
             <motion.span
               initial={{ rotate: 2, x: 2, opacity: 0 }}
@@ -41,9 +43,22 @@ export default function Hero() {
             >
               Kodello
             </motion.span>{" "}
-            skaper vi smarte løsninger for {alternateText}.
+            skaper vi{" "}
+            <motion.span
+              initial={{ rotate: 2, x: 2, opacity: 0 }}
+              animate={{ rotate: -2, x: -2, opacity: 1 }}
+              transition={{
+                duration: 0.5,
+                type: "spring",
+                bounce: 0.25,
+                delay: 0.5
+              }}
+              className="-rotate-2 inline-block underline underline-offset-4"
+            >
+              {alternateText}
+            </motion.span>
           </h1>
-          <p className="my-5 max-w-md mx-auto text-lg">
+          <p className="mt-10 max-w-md mx-auto text-lg">
             Skreddersydde dashboards og smarte løsninger for en mer effektiv
             online tilstedeværelse.
           </p>
