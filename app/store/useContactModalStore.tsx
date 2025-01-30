@@ -12,7 +12,10 @@ const useContactModalStore = create<ModalState>((set) => ({
   isModalOpen: false,
   userQuestion: "",
   openModal: () => set({ isModalOpen: true }),
-  closeModal: () => set({ isModalOpen: false }),
+  closeModal: () => {
+    set({ isModalOpen: false });
+    set({ userQuestion: "" });
+  },
   setUserQuestion: (question) => set({ userQuestion: question })
 }));
 
