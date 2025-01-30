@@ -1,10 +1,24 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StackIcons from "./stackIcons/StackIcons";
 import QuickContact from "./quickContact/QuickContact";
 import { motion } from "motion/react";
 
 export default function Hero() {
+  const [alternateText, setAlternateText] = useState("nettbutikker");
+  const alternateTexts = ["nettbutikker", "bedrifter", "hjemmesider"];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      console.log("interval");
+      setAlternateText((prev) => {
+        const index = alternateTexts.indexOf(prev);
+        return alternateTexts[(index + 1) % alternateTexts.length];
+      });
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [alternateTexts]);
   return (
     <div className="h-screen flex flex-col max-h-[1000px] items-center justify-between">
       <div className="h-full flex items-center justify-center">
@@ -27,7 +41,7 @@ export default function Hero() {
             >
               Kodello
             </motion.span>{" "}
-            skaper vi smarte løsninger for nettbutikker.
+            skaper vi smarte løsninger for {alternateText}.
           </h1>
           <p className="my-5 max-w-md mx-auto text-lg">
             Skreddersydde dashboards og smarte løsninger for en mer effektiv
