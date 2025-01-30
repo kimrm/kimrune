@@ -29,7 +29,7 @@ async function fetchProjects() {
 }
 
 export default async function ProjectsPage() {
-  const data = await fetchProjects();
+  const { data } = await fetchProjects();
 
   return (
     <main className="bg-[#0C1423]">
@@ -39,7 +39,8 @@ export default async function ProjectsPage() {
           Jeg har jobbet med en rekke prosjekter, både for kunder og egne ideer.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 bg-about">
-          {data.data.map((project) => (
+          {data.length < 1 && <p>Kommer snart...</p>}
+          {data.map((project) => (
             <Card key={project.id}>
               <div className="flex flex-col h-full">
                 <Image
